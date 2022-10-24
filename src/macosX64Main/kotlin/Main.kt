@@ -1,5 +1,6 @@
 @file:Suppress("unused")
 
+import platform.darwin.*
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
@@ -17,7 +18,7 @@ fun disable() {
 
 @CName("update")
 fun update() {
-    // Doesn't need update for macOS.
+    UpdateSystemActivity(OverallAct)
 }
 
 @CName("isEnabled")

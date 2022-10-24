@@ -18,19 +18,19 @@ jobs:
         os: [windows-2019]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v2
-      - name: validate gradle wrapper
+      - name: Validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
-      - name: setup jdk ${{ matrix.java }}
+      - name: Setup jdk ${{ matrix.java }}
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
-      - name: build
+      - name: Build
         run: ./gradlew linkMingwX64
         env:
           GITHUB_BUILD_NUMBER: ${{ github.run_number }}
-      - name: capture windows build artifacts
+      - name: Capture Windows build artifacts
         if: ${{ matrix.java == '17' }} # Only upload artifacts built from latest java on one OS
         uses: actions/upload-artifact@v2
         with:
@@ -47,21 +47,51 @@ jobs:
         os: [ubuntu-20.04]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v2
-      - name: validate gradle wrapper
+      - name: Validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
-      - name: setup jdk ${{ matrix.java }}
+      - name: Setup jdk ${{ matrix.java }}
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
-      - name: build
+      - name: Build
         run: ./gradlew linkLinuxX64
         env:
           GITHUB_BUILD_NUMBER: ${{ github.run_number }}
-      - name: capture windows build artifacts
+      - name: Capture Linux build artifacts
         if: ${{ matrix.java == '17' }} # Only upload artifacts built from latest java on one OS
         uses: actions/upload-artifact@v2
         with:
           name: Linux
+          path: build/bin/
+
+  build-macos:
+    strategy:
+      matrix:
+        # Use these Java versions
+        java: [
+          17    # Minimum supported by Minecraft
+        ]
+        # and run on both Linux and not Windows
+        os: [macOS-11]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Validate gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Setup jdk ${{ matrix.java }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Build
+        run: ./gradlew linkMacosX64
+        env:
+          GITHUB_BUILD_NUMBER: ${{ github.run_number }}
+      - name: Capture macOS build artifacts
+        if: ${{ matrix.java == '17' }} # Only upload artifacts built from latest java on one OS
+        uses: actions/upload-artifact@v2
+        with:
+          name: MacOS
           path: build/bin/
