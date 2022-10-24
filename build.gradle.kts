@@ -13,7 +13,7 @@ kotlin {
     mingwX64().apply {
         binaries {
             sharedLib {
-                baseName = "libultreon-commons"
+                baseName = "libanti-sleep"
             }
         }
     }
