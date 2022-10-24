@@ -27,7 +27,7 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: build
-        run: ./gradlew linkReleaseStaticMingwX64
+        run: ./gradlew linkMingwX64
         env:
           GITHUB_BUILD_NUMBER: ${{ github.run_number }}
       - name: capture windows build artifacts
