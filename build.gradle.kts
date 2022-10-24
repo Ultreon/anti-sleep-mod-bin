@@ -18,8 +18,6 @@ kotlin {
         }
     }
     sourceSets {
-        val nativeMain by getting
-        val nativeTest by getting
         val mingwX64Main by getting
         val mingwX64Test by getting
     }
