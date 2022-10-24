@@ -15,7 +15,7 @@ kotlin {
     mingwX64().apply {
         binaries {
             sharedLib {
-                baseName = "libanti-sleep"
+                baseName = "anti-sleep"
             }
         }
     }
@@ -30,6 +30,14 @@ kotlin {
             create("x11") {
                 defFile("src/linuxX64Main/cinterop/x11.def")
                 includeDirs("/usr/include")
+            }
+        }
+    }
+
+    macosX64().apply {
+        binaries {
+            sharedLib {
+                baseName = "anti-sleep"
             }
         }
     }
