@@ -12,11 +12,12 @@ repositories {
 kotlin {
     mingwX64().apply {
         binaries {
-            staticLib {
-                baseName = "libanti_sleep"
+            sharedLib {
+                baseName = "libultreon-commons"
             }
         }
     }
+
     sourceSets {
         val mingwX64Main by getting
         val mingwX64Test by getting
